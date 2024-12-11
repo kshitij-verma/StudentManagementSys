@@ -73,6 +73,33 @@ namespace Repositories.DbModels
                  .HasForeignKey(e => e.CourseId);
 
             });
+
+            // Seeding Faculty data
+            modelBuilder.Entity<Faculty>().HasData(
+                new Faculty { Id = 1, Name = "Technical Science" },
+                new Faculty { Id = 2, Name = "Science" },
+                new Faculty { Id = 3, Name = "Arts" },
+                new Faculty { Id = 4, Name = "Business" },
+                new Faculty { Id = 5, Name = "Mathematics" }
+                    );
+
+            // Seeding Course data
+            modelBuilder.Entity<Course>().HasData(
+                new Course { Id = 1, Name = "Data Structures" },
+                new Course { Id = 2, Name = "Advanced Algebra" },
+                new Course { Id = 3, Name = "Law and Ethics" },
+                new Course { Id = 4, Name = "Introduction to Algebra" },
+                new Course { Id = 5, Name = "Business Process Management" }
+                    );
+
+            // Seeding Student data
+            modelBuilder.Entity<Student>().HasData(
+                new Student { Id = 1, Name = "Technical Science", Phone = "11111111" },
+                new Student { Id = 2, Name = "Science", Phone = "23232323"},
+                new Student { Id = 3, Name = "Arts", Phone = "24242424"},
+                new Student { Id = 4, Name = "Business", Phone = "4444444" },
+                new Student { Id = 5, Name = "Mathematics", Phone = "555555"}
+                    );
         }
     }
 }
