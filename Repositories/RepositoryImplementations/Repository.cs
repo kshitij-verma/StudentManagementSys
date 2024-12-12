@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Repositories.Interfaces;
 using Repositories.DbModels;
+using Repositories.RepositoryBase;
 //using System.Data.Entity;
 
-namespace Repositories.RepositoryBase
+namespace Repositories.RepositoryImplementations
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : ICourseRepository<T> where T : class
     {
         private readonly SMSContext _context;
-        private readonly Microsoft.EntityFrameworkCore.DbSet<T> _dbSet;
+        private readonly DbSet<T> _dbSet;
 
         public Repository(SMSContext context)
         {

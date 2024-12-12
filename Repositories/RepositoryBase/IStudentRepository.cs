@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repositories.Interfaces
+namespace Repositories.RepositoryBase
 {
-    public interface IStudentRepository : IRepository<Student>
+    public interface IStudentRepository : ICourseRepository<Student>
     {
         //Task<IEnumerable<Student>> GetAllStudentsAsync();
         //Task<Course> GetStudentByIdAsync(int id);

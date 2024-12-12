@@ -1,8 +1,8 @@
 ﻿using Models.Entities;
 using Repositories.DbModels;
-using Repositories.Interfaces;
+using Repositories.RepositoryBase;
 
-namespace Repositories.RepositoryBase
+namespace Repositories.RepositoryImplementations
 {
     public class EnrollmentRepository : Repository<Enrollment>, IEnrollmentRepository
     {

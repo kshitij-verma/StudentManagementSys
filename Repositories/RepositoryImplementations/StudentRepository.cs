@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Models.Entities;
 using Repositories.DbModels;
-using Repositories.Interfaces;
+using Repositories.RepositoryBase;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Repositories.RepositoryBase
+namespace Repositories.RepositoryImplementations
 {
     public class StudentRepository : Repository<Student>, IStudentRepository
     {
