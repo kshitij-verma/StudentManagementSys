@@ -1,5 +1,5 @@
 ﻿using Models.Entities;
-using Repositories.Interfaces;
+using Repositories.RepositoryBase;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,26 +10,26 @@ namespace Services.BusinessLogic
 {
     public class FacultyService
     {
-        private readonly IFacultyRepository _facultyRepository;
+        private readonly IFacultyRepository<Faculty> _facultyRepository;
 
-        public FacultyService(IFacultyRepository facultyRepository)
+        public FacultyService(IFacultyRepository<Faculty> facultyRepository)
         {
             _facultyRepository = facultyRepository;
         }
 
-        public async Task<IEnumerable<Faculty>> GetAllFacultiesAsync()
+        public async Task<IEnumerable<Faculty>> GetAllAsync()
         {
-            return await _facultyRepository.GetAllFacultiesAsync();
+            return await _facultyRepository.GetAllAsync();
         }
 
-        public async Task<Faculty> GetFacultyByIdAsync(int id)
+        public async Task<Faculty> GetByIdAsync(int id)
         {
-            return await _facultyRepository.GetFacultyByIdAsync(id);
+            return await _facultyRepository.GetByIdAsync(id);
         }
 
-        public async Task<bool> UpdateFacultyAsync(int id, Faculty updatedFaculty)
+        public async Task<bool> UpdateAsync(int id, Faculty updatedFaculty)
         {
-            var faculty = await _facultyRepository.GetFacultyByIdAsync(id);
+            var faculty = await _facultyRepository.GetByIdAsync(id);
 
             if (faculty == null)
             {
@@ -45,12 +45,12 @@ namespace Services.BusinessLogic
         public async Task AddFacultyAsync(Faculty faculty)
         {
             
-            await _facultyRepository.AddFacultyAsync(faculty);
+            await _facultyRepository.AddAsync(faculty);
         }
 
         public async Task DeleteFacultyAsync(int id)
         {
-            await _facultyRepository.DeleteFacultyAsync(id);
+            await _facultyRepository.DeleteAsync(id);
         }
     }
 
