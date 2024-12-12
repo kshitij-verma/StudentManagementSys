@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Repositories.Interfaces
 {
-    public interface IFacultyRepository //: IRepository<Faculty> // where Faculty: class
+    public interface IFacultyRepository : IRepository<Faculty> // where Faculty: class
     {                                  
-        Task<IEnumerable<Faculty>> GetAllFacultiesAsync();
-        Task<Faculty> GetFacultyByIdAsync(int id);
-        Task SaveAsync();
-        Task UpdateFacultyAsync(Faculty faculty);
-        Task AddFacultyAsync(Faculty faculty);
-        Task DeleteFacultyAsync(int id);
+        //Task<IEnumerable<Faculty>> GetAllFacultiesAsync();
+        //Task<Faculty> GetFacultyByIdAsync(int id);
+        //Task SaveAsync();
+        //Task UpdateFacultyAsync(Faculty faculty);
+        //Task AddFacultyAsync(Faculty faculty);
+        //Task DeleteFacultyAsync(int id);
     }
 }

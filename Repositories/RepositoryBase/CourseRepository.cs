@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Models.Entities;
+using Repositories.DbModels;
+using Repositories.Interfaces;
 
 namespace Repositories.RepositoryBase
 {
-    internal class CourseRepository
+    public class CourseRepository : Repository<Course>, ICourseRepository
     {
+        private readonly SMSContext _context;
+
+        public CourseRepository(SMSContext context) : base(context)
+        {
+            _context = context;
+        }
     }
 }
