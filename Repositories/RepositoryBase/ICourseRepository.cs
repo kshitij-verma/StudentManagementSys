@@ -9,11 +9,6 @@ namespace Repositories.RepositoryBase
 {
     public interface ICourseRepository : ICourseRepository<Course>
     {
-        //Task<IEnumerable<Course>> GetAllCoursesAsync();
-        //Task<Course> GetCourseByIdAsync(int id);
-        //Task SaveAsync();
-        //Task UpdateCourseAsync(Course course);
-        //Task AddCourseAsync(Course course);
-        //Task DeleteCourseAsync(int id);
+        
     }
 }

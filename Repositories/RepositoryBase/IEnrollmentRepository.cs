@@ -9,11 +9,6 @@ namespace Repositories.RepositoryBase
 {
     public interface IEnrollmentRepository : ICourseRepository<Enrollment>
     {
-        //Task<IEnumerable<Enrollment>> GetAllEnrollmentsAsync();
-        //Task<Enrollment> GetEnrollmentByIdAsync(int id);
-        //Task SaveAsync();
-        //Task UpdateEnrollmentAsync(Enrollment enrollment);
-        //Task AddEnrollmentAsync(Enrollment enrollment);
-        //Task DeleteEnrollmentAsync(int id);
+    
     }
 }
