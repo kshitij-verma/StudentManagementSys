@@ -9,7 +9,7 @@ using Repositories.RepositoryBase;
 
 namespace Services.ServiceImplementation
 {
-    public class FacultyService :IService<Faculty>
+    public class FacultyService : IFacultyService, IService<Faculty>
     {
         private readonly IFacultyRepository _facultyRepository;
 

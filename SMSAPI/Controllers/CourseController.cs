@@ -7,6 +7,8 @@ using Repositories.DbModels;
 using Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Services.ServicesBase;
+//using Services.BusinessLogic;
 
 
 namespace SMSAPI.Controllers
@@ -17,26 +19,25 @@ namespace SMSAPI.Controllers
     [ApiController]
     public class CourseController : ControllerBase
     {
-        private readonly SMSContext _context;
+        private readonly ICourseService _courseService;
 
-        public CourseController(SMSContext context)
+        public CourseController(ICourseService courseService)
         {
-            _context = context;
+            _courseService = courseService;
         }
 
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
         {
-            return await _context.Courses.Include(c => c.Students).ToListAsync();
+            var courses = await _courseService.GetAllAsync();
+            return Ok(courses);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Course>> GetCourse(int id)
         {
-            var course = await _context.Courses
-                                        .Include(c => c.Students)
-                                        .FirstOrDefaultAsync(c => c.Id == id);
+            var course = await _courseService.GetByIdAsync(id);
 
             if (course == null)
             {
@@ -49,54 +50,37 @@ namespace SMSAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Course>> PostCourse(Course course)
         {
-            _context.Courses.Add(course);
-            await _context.SaveChangesAsync();
-
+            await _courseService.AddAsync(course);
             return CreatedAtAction("GetCourse", new { id = course.Id }, course);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCourse(int id, Course course)
         {
-            if (id != course.Id)
+            var success = await _courseService.UpdateAsync(id, course);
+            if (!success)
             {
-                return BadRequest();
+                return NotFound(); // code 404 if not found
             }
 
-            _context.Entry(course).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_context.Courses.Any(c => c.Id == id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return NoContent(); // code 204 if successful
         }
+
+
+
+
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<Course>> DeleteCourse(int id)
         {
-            var course = await _context.Courses.FindAsync(id);
+            var course = await _courseService.GetByIdAsync(id);
             if (course == null)
             {
                 return NotFound();
             }
 
-            _context.Courses.Remove(course);
-            await _context.SaveChangesAsync();
-
-            return course;
+            await _courseService.DeleteAsync(id);
+            return Ok(course);
         }
     }
 }

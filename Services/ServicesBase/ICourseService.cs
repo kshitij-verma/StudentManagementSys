@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Services.ServicesBase
 {
-    public interface ICourseService<T> where T : class
+    public interface ICourseService : IService<Course>
     {
         
     }

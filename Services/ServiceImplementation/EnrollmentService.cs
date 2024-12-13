@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.BusinessLogic
+namespace Services.ServiceImplementation
 {
-    public class EnrollmentService : IService<Enrollment>
+    public class EnrollmentService : IEnrollmentService, IService<Enrollment>
     {
         private readonly IEnrollmentRepository _enrollmentRepository;
 

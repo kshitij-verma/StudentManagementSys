@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Repositories.RepositoryImplementations;
 
-namespace Services.BusinessLogic
+namespace Services.ServiceImplementation
 {
-    public class CourseService : IService<Course>
+    public class CourseService : ICourseService, IService<Course>
     {
         private readonly ICourseRepository _courseRepository;
 

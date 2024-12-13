@@ -7,87 +7,79 @@ using Repositories.DbModels;
 using Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Repositories.RepositoryBase;
-using Repositories.Interfaces;
-using Services.BusinessLogic;
+//using Services.BusinessLogic;
+using Services.ServicesBase;
+using Services.ServiceImplementation;
 
 namespace SMSAPI.Controllers
 {
-    // controller for Faculty
+    // Controller for Faculties
 
-    [Route("api/Faculty")]
+    [Route("api/faculties")]
     [ApiController]
     public class FacultyController : ControllerBase
     {
-        private readonly FacultyService _facultyService;
+        private readonly IFacultyService _facultyService;
+
+        public FacultyController(IFacultyService facultyService)
+        {
+            _facultyService = facultyService;
+        }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Faculty>>> GetFaculty()
+        public async Task<ActionResult<IEnumerable<Faculty>>> GetFaculties()
         {
-            var faculties = await _facultyService.GetAllFacultiesAsync();
-            return Ok(faculties); // Ok is the 200 OK status code
+            var faculties = await _facultyService.GetAllAsync();
+            return Ok(faculties);
         }
 
         [HttpGet("{id}")]
-
         public async Task<ActionResult<Faculty>> GetFaculty(int id)
         {
-            var faculty = await _facultyService.GetFacultyByIdAsync(id);
+            var faculty = await _facultyService.GetByIdAsync(id);
+
             if (faculty == null)
             {
-                return NotFound(); // 404 response
-            }
-            return Ok(faculty); // 200 OK status
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateFaculty(int id, Faculty updatedFaculty)
-        {
-            if (id != updatedFaculty.Id)
-            {
-                return BadRequest("Faculty ID mismatch");
+                return NotFound();
             }
 
-            var result = await _facultyService.UpdateFacultyAsync(id, updatedFaculty);
-
-            if (result)
-            {
-                return NoContent(); // Success: No content to return
-            }
-            else
-            {
-                return NotFound(); // Faculty not found or update failed
-            }
+            return faculty;
         }
 
         [HttpPost]
-        public async Task<ActionResult<Faculty>> AddFaculty(Faculty faculty)
+        public async Task<ActionResult<Faculty>> PostFaculty(Faculty faculty)
         {
-            if (faculty == null)
+            await _facultyService.AddAsync(faculty);
+            return CreatedAtAction("GetFaculty", new { id = faculty.Id }, faculty);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutFaculty(int id, Faculty faculty)
+        {
+            var success = await _facultyService.UpdateAsync(id, faculty);
+            if (!success)
             {
-                return BadRequest("Faculty object is null.");
+                return NotFound(); // code 404 if not found
             }
 
-            // Add the new faculty to the repository
-            await _facultyService.AddFacultyAsync(faculty);
-
-            // Return a response with the newly created faculty and the status code 201 (Created)
-            return CreatedAtAction(nameof(GetFaculty), new { id = faculty.Id }, faculty);
+            return NoContent(); // code 204 if successful
         }
+
+
+
+
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFaculty(int id)
+        public async Task<ActionResult<Faculty>> DeleteFaculty(int id)
         {
-            var faculty = await _facultyService.GetFacultyByIdAsync(id);
+            var faculty = await _facultyService.GetByIdAsync(id);
             if (faculty == null)
             {
-                return NotFound($"Faculty with ID {id} not found.");
+                return NotFound();
             }
 
-            await _facultyService.DeleteFacultyAsync(id);
-            return NoContent(); // Status 204 (No Content) to indicate successful deletion
+            await _facultyService.DeleteAsync(id);
+            return Ok(faculty);
         }
-
-
     }
 }

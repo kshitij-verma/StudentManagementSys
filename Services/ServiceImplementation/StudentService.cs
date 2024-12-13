@@ -7,9 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.BusinessLogic
+namespace Services.ServiceImplementation
+
 {
-    public class StudentService : IService<Student>
+    public class StudentService : IStudentService, IService<Student>
     {
         private readonly IStudentRepository _studentRepository;
 
