@@ -1,14 +1,15 @@
 ﻿using Models.Entities;
-using Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Services.ServicesBase;
+using Repositories.RepositoryBase;
 
-namespace Services.BusinessLogic
+namespace Services.ServiceImplementation
 {
-    public class FacultyService
+    public class FacultyService :IService<Faculty>
     {
         private readonly IFacultyRepository _facultyRepository;
 
@@ -17,19 +18,19 @@ namespace Services.BusinessLogic
             _facultyRepository = facultyRepository;
         }
 
-        public async Task<IEnumerable<Faculty>> GetAllFacultiesAsync()
+        public async Task<IEnumerable<Faculty>> GetAllAsync()
         {
-            return await _facultyRepository.GetAllFacultiesAsync();
+            return await _facultyRepository.GetAllAsync();
         }
 
-        public async Task<Faculty> GetFacultyByIdAsync(int id)
+        public async Task<Faculty> GetByIdAsync(int id)
         {
-            return await _facultyRepository.GetFacultyByIdAsync(id);
+            return await _facultyRepository.GetByIdAsync(id);
         }
 
-        public async Task<bool> UpdateFacultyAsync(int id, Faculty updatedFaculty)
+        public async Task<bool> UpdateAsync(int id, Faculty updatedFaculty)
         {
-            var faculty = await _facultyRepository.GetFacultyByIdAsync(id);
+            var faculty = await _facultyRepository.GetByIdAsync(id);
 
             if (faculty == null)
             {
@@ -42,15 +43,15 @@ namespace Services.BusinessLogic
             return true;
         }
 
-        public async Task AddFacultyAsync(Faculty faculty)
+        public async Task AddAsync(Faculty faculty)
         {
-            
-            await _facultyRepository.AddFacultyAsync(faculty);
+
+            await _facultyRepository.AddAsync(faculty);
         }
 
-        public async Task DeleteFacultyAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            await _facultyRepository.DeleteFacultyAsync(id);
+            await _facultyRepository.DeleteAsync(id);
         }
     }
 
