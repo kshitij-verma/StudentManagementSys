@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repositories.DbModels;
 
@@ -10,9 +11,11 @@ using Repositories.DbModels;
 namespace Repositories.Migrations
 {
     [DbContext(typeof(SMSContext))]
-    partial class SMSContextModelSnapshot : ModelSnapshot
+    [Migration("20241213122605_AddingDataToTheDatabase")]
+    partial class AddingDataToTheDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
