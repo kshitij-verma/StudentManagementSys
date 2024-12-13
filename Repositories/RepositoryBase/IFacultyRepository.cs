@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Repositories.RepositoryBase
 {
-    public interface IFacultyRepository : ICourseRepository<Faculty> // where Faculty: class
+    public interface IFacultyRepository : IRepository<Faculty> // where Faculty: class
     {
        
     }

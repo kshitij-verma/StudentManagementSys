@@ -5,7 +5,7 @@ using Repositories.RepositoryBase;
 
 namespace Repositories.RepositoryImplementations
 {
-    public class Repository<T> : ICourseRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class
     {
         private readonly SMSContext _context;
         private readonly DbSet<T> _dbSet;

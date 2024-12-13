@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Repositories.RepositoryBase
 {
-    public interface IEnrollmentRepository : ICourseRepository<Enrollment>
+    public interface IEnrollmentRepository : IRepository<Enrollment>
     {
     
     }
